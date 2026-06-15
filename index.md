@@ -4,13 +4,10 @@ title: Symphonic-Joules - Where Sound Meets Science
 ---
 
 <div align="center">
-  
-![Symphonic-Joules Header](assets/typing-header.svg)
 
-[![CI](https://github.com/JaclynCodes/Symphonic-Joules/workflows/CI/badge.svg)](https://github.com/JaclynCodes/Symphonic-Joules/actions)
-[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+# 🎵 Symphonic-Joules
+
+**Where Sound Meets Science**
 
 </div>
 
@@ -31,28 +28,26 @@ A project that harmonizes the worlds of sound and energy through innovative comp
 
 ---
 
-## 🚀 Start Here
-
-Choose your path based on what you want to do:
+## 🚀 Quick Navigation
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 30px 0;">
 
 <div style="border: 2px solid #4CAF50; padding: 20px; border-radius: 8px;">
 <h3>📦 Get Started</h3>
 <p>Ready to install and try Symphonic-Joules?</p>
-<a href="docs/installation-setup.md" style="color: #4CAF50; font-weight: bold;">Installation Guide →</a>
+<a href="https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md#-quick-start" style="color: #4CAF50; font-weight: bold;">Installation Guide →</a>
 </div>
 
 <div style="border: 2px solid #2196F3; padding: 20px; border-radius: 8px;">
 <h3>💡 Learn by Example</h3>
 <p>See what Symphonic-Joules can do with practical examples.</p>
-<a href="docs/examples/" style="color: #2196F3; font-weight: bold;">View Examples →</a>
+<a href="https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md#-usage-examples" style="color: #2196F3; font-weight: bold;">View Examples →</a>
 </div>
 
 <div style="border: 2px solid #FF9800; padding: 20px; border-radius: 8px;">
 <h3>🤝 Contribute</h3>
 <p>Help build the future of acoustic energy analysis.</p>
-<a href="CONTRIBUTING.md" style="color: #FF9800; font-weight: bold;">Contributing Guide →</a>
+<a href="https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/CONTRIBUTING.md" style="color: #FF9800; font-weight: bold;">Contributing Guide →</a>
 </div>
 
 </div>
@@ -67,11 +62,16 @@ Symphonic-Joules explores the **acoustic energy density equation**, which govern
 
 ### **w = p² / (2ρc²) + ρv² / 2**
 
+**Where:**
+- **w** = acoustic energy density (J/m³)
+- **p** = sound pressure (Pa)
+- **ρ** = medium density (kg/m³)
+- **c** = speed of sound (m/s)
+- **v** = particle velocity (m/s)
+
 </div>
 
 This fundamental relationship bridges acoustics and energy, guiding our computational approach.
-
-[Learn More About the Science →](docs/scientific-background.md)
 
 ---
 
@@ -90,17 +90,15 @@ energy = calculator.compute_total_energy(signal)
 print(f"Total Energy: {energy:.6f} J")
 ```
 
-[Full API Documentation →](docs/api-reference.md)
-
 ---
 
 ## 📚 Documentation
 
-- **[Getting Started](docs/getting-started.md)** - Installation and first steps
-- **[API Reference](docs/api-reference.md)** - Complete API documentation
-- **[Architecture](docs/architecture.md)** - System design and structure
-- **[FAQ](docs/faq.md)** - Frequently asked questions
-- **[Scientific Background](docs/scientific-background.md)** - Deep dive into the physics
+- **[Full README](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md)** - Complete project documentation
+- **[Installation Guide](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md#-quick-start)** - Setup instructions
+- **[Contributing Guidelines](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/CONTRIBUTING.md)** - How to contribute
+- **[API Reference](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/tree/main/docs)** - API documentation
+- **[Roadmap](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md#-roadmap)** - Development timeline
 
 ---
 
@@ -108,16 +106,16 @@ print(f"Total Energy: {energy:.6f} J")
 
 **Current Phase:** 🏗️ Foundation (v0.1.0)
 
-We're building a solid infrastructure for scientific audio and energy analysis. See the [Roadmap](README.md#-roadmap) for our development timeline.
+We're building a solid infrastructure for scientific audio and energy analysis. Python 3.8+, MIT License, comprehensive testing.
 
 ---
 
 ## 🤝 Get Involved
 
-- **Report Bugs**: [Create an Issue](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/issues/new)
-- **Suggest Features**: [Feature Request](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/issues/new?labels=enhancement)
-- **Ask Questions**: [GitHub Discussions](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/discussions)
-- **View Code**: [Repository](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4)
+- **[Report Bugs](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/issues/new)** - Create an issue
+- **[Suggest Features](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/issues/new?labels=enhancement)** - Feature requests
+- **[Ask Questions](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/discussions)** - GitHub Discussions
+- **[View Repository](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4)** - Source code
 
 ---
 
@@ -127,6 +125,6 @@ We're building a solid infrastructure for scientific audio and energy analysis. 
 
 *Where sound meets science, harmony meets energy.*
 
-[![Star this repo](https://img.shields.io/github/stars/JaclynCodes/Symphonic-Joules?style=social)](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4)
+[⭐ Star on GitHub](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4)
 
 </div>
