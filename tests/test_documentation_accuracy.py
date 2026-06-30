@@ -15,70 +15,15 @@ from pathlib import Path
 
 
 @pytest.fixture(scope='module')
-def repo_root():
-    """
-    Return the repository root directory.
-    
-    Returns:
-        Path: Path to the repository root directory.
-    """
-    return Path(__file__).parent.parent
-
-
-@pytest.fixture(scope='module')
-def faq_path(repo_root):
-    """
-    Return the path to the project's FAQ Markdown file.
-    
-    Parameters:
-        repo_root (Path): Repository root directory.
-    
-    Returns:
-        Path: Path to the docs/faq.md file within the repository.
-    """
-    return repo_root / 'docs' / 'faq.md'
-
-
-@pytest.fixture(scope='module')
-def installation_path(repo_root):
-    """
-    Return the filesystem path to the installation guide within the repository.
-    
-    Parameters:
-    	repo_root (Path): Repository root directory.
-    
-    Returns:
-    	Path: Path to the file `docs/installation-setup.md` inside `repo_root`.
-    """
-    return repo_root / 'docs' / 'installation-setup.md'
-
-
-@pytest.fixture(scope='module')
 def faq_content(faq_path):
-    """
-    Read and return the contents of the FAQ file at the given path.
-    
-    Parameters:
-    	faq_path (str | pathlib.Path): Path to the FAQ markdown file.
-    
-    Returns:
-    	content (str): Full text contents of the file.
-    """
+    """Load FAQ content"""
     with open(faq_path, 'r') as f:
         return f.read()
 
 
 @pytest.fixture(scope='module')
 def installation_content(installation_path):
-    """
-    Read and return the contents of the installation guide file.
-    
-    Parameters:
-    	installation_path (str | pathlib.Path): Path to the installation guide markdown file.
-    
-    Returns:
-    	content (str): Full text content of the file.
-    """
+    """Load installation guide content"""
     with open(installation_path, 'r') as f:
         return f.read()
 
@@ -179,9 +124,7 @@ class TestInstallationPythonVersion:
             "Should specify Python 3.8 as minimum version"
     
     def test_mentions_python_311_recommendation(self, installation_content):
-        """
-        Check that the installation guide recommends Python 3.11 for macOS.
-        """
+        """Test that guide mentions Python 3.11 recommendation"""
         assert '3.11' in installation_content, \
             "Should mention Python 3.11 as recommendation for macOS"
     
@@ -328,12 +271,7 @@ class TestInternalLinks:
             "FAQ should link to installation guide"
     
     def test_installation_section_anchors(self, installation_content):
-        """
-        Verify the installation guide uses properly formatted section anchor links when anchor-like characters are present.
-        
-        Parameters:
-            installation_content (str): Markdown content of the installation guide; checked for anchor-style links formatted as `(#[anchor-name])`.
-        """
+        """Test that installation guide uses section anchors for links"""
         if '#' in installation_content and '(' in installation_content:
             # Look for anchor-style links
             anchor_pattern = r'\(#[\w-]+\)'
@@ -354,14 +292,7 @@ class TestVersionConsistency:
             "Python 3.11 should be mentioned consistently"
     
     def test_no_conflicting_version_info(self, installation_content):
-        """
-        Fail the test if the installation guide references outdated Python 3.x versions.
-        
-        Checks the provided installation_content for mentions of Python 3.6 or 3.7 and fails if either is present.
-        
-        Parameters:
-            installation_content (str): Markdown content of the installation guide.
-        """
+        """Test that there's no conflicting version information"""
         # Extract all Python versions mentioned
         versions = re.findall(r'Python\s*3\.(\d+)', installation_content, re.IGNORECASE)
         # Common versions should be: 8 (minimum), 11 (workaround), 12 (latest)
@@ -400,11 +331,7 @@ class TestDocumentationQuality:
             "All markdown links should be properly formatted"
     
     def test_no_todo_markers(self, faq_content, installation_content):
-        """
-        Verify that the FAQ and installation guide do not contain 'TODO' or 'FIXME' markers outside of code/comment contexts.
-        
-        Checks the combined contents of the FAQ and installation files for the strings 'TODO' or 'FIXME' (case-insensitive); occurrences that are intended to be inside code blocks or comment contexts should be excluded from failure.
-        """
+        """Test that documentation doesn't have TODO markers"""
         all_content = (faq_content + installation_content).lower()
         # It's okay to have TODO in comments, but not in user-facing content
         if 'todo' in all_content or 'fixme' in all_content:
@@ -433,14 +360,7 @@ class TestEdgeCases:
             "Should not have example paths with specific usernames"
     
     def test_references_current_python_versions(self, installation_content):
-        """
-        Verify the installation guide does not reference deprecated Python versions.
-        
-        Specifically checks that the strings '2.7', '3.5', and '3.6' are not present in the provided installation content.
-        
-        Parameters:
-            installation_content (str): Text content of the installation guide to scan for version strings.
-        """
+        """Test that documentation references current Python versions"""
         # Should not reference very old versions
         assert '2.7' not in installation_content, \
             "Should not reference Python 2.7"

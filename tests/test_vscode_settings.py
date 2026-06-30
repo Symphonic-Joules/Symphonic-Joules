@@ -13,46 +13,6 @@ import json
 from pathlib import Path
 
 
-@pytest.fixture(scope='module')
-def repo_root():
-    """
-    Locate the repository root directory.
-    
-    Returns:
-        Path: Path object pointing to the repository root (two levels up from this file).
-    """
-    return Path(__file__).parent.parent
-
-
-@pytest.fixture(scope='module')
-def vscode_settings_path(repo_root):
-    """
-    Return the Path to the repository's VSCode settings.json file.
-    
-    Parameters:
-        repo_root (Path | str): Repository root directory.
-    
-    Returns:
-        Path: Path to '.vscode/settings.json' inside the provided repository root.
-    """
-    return repo_root / '.vscode' / 'settings.json'
-
-
-@pytest.fixture(scope='module')
-def vscode_settings(vscode_settings_path):
-    """
-    Load VSCode workspace settings from the given file path.
-    
-    Parameters:
-        vscode_settings_path (str | pathlib.Path): Path to the `.vscode/settings.json` file to read.
-    
-    Returns:
-        dict: Parsed JSON content of the VSCode settings file.
-    """
-    with open(vscode_settings_path, 'r') as f:
-        return json.load(f)
-
-
 class TestVSCodeSettingsStructure:
     """Test VSCode settings structure"""
     
@@ -62,9 +22,7 @@ class TestVSCodeSettingsStructure:
             "VSCode settings file should exist"
     
     def test_vscode_directory_exists(self, repo_root):
-        """
-        Verify that the repository contains a .vscode directory.
-        """
+        """Test that .vscode directory exists"""
         vscode_dir = repo_root / '.vscode'
         assert vscode_dir.exists(), \
             ".vscode directory should exist"
@@ -72,20 +30,14 @@ class TestVSCodeSettingsStructure:
             ".vscode should be a directory"
     
     def test_settings_is_valid_json(self, vscode_settings):
-        """
-        Verify the VSCode settings file loads as a non-null dictionary.
-        
-        Asserts that the provided `vscode_settings` fixture is not None and is an instance of `dict`.
-        """
+        """Test that settings.json is valid JSON"""
         assert vscode_settings is not None, \
             "VSCode settings should not be None"
         assert isinstance(vscode_settings, dict), \
             "VSCode settings should be a dictionary"
     
     def test_settings_not_empty(self, vscode_settings):
-        """
-        Assert the parsed VSCode settings contain at least one top-level entry.
-        """
+        """Test that settings file is not empty"""
         assert len(vscode_settings) > 0, \
             "VSCode settings should not be empty"
 
@@ -111,9 +63,7 @@ class TestGitHubPullRequestsSettings:
             "Master branch should be ignored for PRs"
     
     def test_ignored_branches_not_empty(self, vscode_settings):
-        """
-        Ensure the `githubPullRequests.ignoredPullRequestBranches` setting contains at least one entry.
-        """
+        """Test that ignored branches list is not empty"""
         ignored = vscode_settings.get('githubPullRequests.ignoredPullRequestBranches', [])
         assert len(ignored) > 0, \
             "Should have at least one ignored branch"
@@ -152,11 +102,7 @@ class TestFileFormat:
     """Test JSON file formatting"""
     
     def test_file_ends_with_newline(self, vscode_settings_path):
-        """
-        Check that the VSCode settings JSON file ends with a newline character.
-        
-        Accepts either LF or CRLF as the terminating newline. Empty files are ignored.
-        """
+        """Test that JSON file ends with newline"""
         with open(vscode_settings_path, 'rb') as f:
             content = f.read()
             # Check if file ends with newline
@@ -166,14 +112,7 @@ class TestFileFormat:
                     "JSON file should end with newline"
     
     def test_file_uses_consistent_indentation(self, vscode_settings_path):
-        """
-        Assert that .vscode/settings.json uses a single, consistent indentation unit.
-        
-        Reads the file and verifies that the number of leading spaces on each indented line is a multiple of the smallest observed indentation, ensuring consistent indentation spacing.
-        
-        Parameters:
-        	vscode_settings_path (Path): Path to the .vscode/settings.json file to check.
-        """
+        """Test that JSON uses consistent indentation"""
         with open(vscode_settings_path, 'r') as f:
             content = f.read()
             lines = content.split('\n')
@@ -198,26 +137,14 @@ class TestEdgeCases:
     """Test edge cases and special scenarios"""
     
     def test_settings_file_is_not_too_large(self, vscode_settings_path):
-        """
-        Assert the VS Code settings.json file is smaller than 10 KB.
-        
-        Parameters:
-            vscode_settings_path (Path): Path to the .vscode/settings.json file.
-        
-        Notes:
-            The test fails if the file size is 10,240 bytes or larger.
-        """
+        """Test that settings file is reasonably sized"""
         file_size = vscode_settings_path.stat().st_size
         # Settings file should be less than 10KB for a simple config
         assert file_size < 10240, \
             "Settings file should be reasonably sized (< 10KB)"
     
     def test_no_sensitive_data_in_settings(self, vscode_settings):
-        """
-        Ensure VSCode settings do not contain common sensitive keywords.
-        
-        Checks the JSON-serialized settings for the presence of `password`, `token`, `secret`, `api_key`, and `apikey` (case-insensitive) and fails the test if any are found.
-        """
+        """Test that settings don't contain sensitive information"""
         settings_str = json.dumps(vscode_settings).lower()
         sensitive_keywords = ['password', 'token', 'secret', 'api_key', 'apikey']
         
@@ -226,11 +153,7 @@ class TestEdgeCases:
                 f"Settings should not contain sensitive data: {keyword}"
     
     def test_settings_work_with_git(self, repo_root):
-        """
-        Ensure the repository allows tracking of .vscode/settings.json in Git.
-        
-        Checks .gitignore (if present) to confirm that the `.vscode/` directory is not wholly ignored or that an explicit exception for `!.vscode/settings.json` exists.
-        """
+        """Test that .vscode directory is properly tracked"""
         gitignore_path = repo_root / '.gitignore'
         if gitignore_path.exists():
             with open(gitignore_path, 'r') as f:

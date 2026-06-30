@@ -16,12 +16,7 @@ from pathlib import Path
 
 @pytest.fixture(scope='module')
 def vscode_dir():
-    """
-    Get the repository's .vscode directory path.
-    
-    Returns:
-        path (Path): Path pointing to the .vscode directory in the repository root.
-    """
+    """Get .vscode directory path"""
     return Path('.vscode')
 
 
@@ -33,30 +28,14 @@ def settings_path(vscode_dir):
 
 @pytest.fixture(scope='module')
 def settings_raw(settings_path):
-    """
-    Read and return the raw text content of the VSCode settings file.
-    
-    Parameters:
-        settings_path (Path | str): Path to the `.vscode/settings.json` file.
-    
-    Returns:
-        str: The raw file contents.
-    """
+    """Load raw VSCode settings content"""
     with open(settings_path, 'r') as f:
         return f.read()
 
 
 @pytest.fixture(scope='module')
 def settings_config(settings_raw):
-    """
-    Parse VSCode settings.json content.
-    
-    Parameters:
-        settings_raw (str): Raw text content of a VSCode settings.json file.
-    
-    Returns:
-        dict: The parsed JSON object representing the settings.
-    """
+    """Parse VSCode settings JSON"""
     return json.loads(settings_raw)
 
 
@@ -108,11 +87,7 @@ class TestJSONStructure:
             "JSON should use double quotes, not single quotes"
     
     def test_json_is_properly_formatted(self, settings_raw):
-        """
-        Ensure settings.json uses spaces for indentation rather than tabs.
-        
-        If any lines begin with a space (indicating indentation), assert that no line in the file contains a tab character.
-        """
+        """Test that JSON has consistent indentation"""
         lines = settings_raw.split('\n')
         # Check that file uses consistent indentation (spaces)
         indented_lines = [line for line in lines if line and line[0] == ' ']
@@ -150,9 +125,7 @@ class TestGitHubPullRequestsConfiguration:
             "Should have at least one ignored branch configured"
     
     def test_master_branch_is_ignored(self, settings_config):
-        """
-        Verify the 'githubPullRequests.ignoredPullRequestBranches' setting includes 'Master'.
-        """
+        """Test that 'Master' branch is in ignored list"""
         ignored = settings_config.get('githubPullRequests.ignoredPullRequestBranches', [])
         assert 'Master' in ignored, \
             "'Master' branch should be in ignored branches list"
@@ -169,11 +142,7 @@ class TestBranchNamingConventions:
     """Test branch naming in configuration"""
     
     def test_uses_capital_master(self, settings_config):
-        """
-        Enforces that the GitHub Pull Requests ignored-branches list uses 'Master' (capital M) and not 'master'.
-        
-        Checks the `githubPullRequests.ignoredPullRequestBranches` setting contains 'Master' and does not contain the lowercase 'master'.
-        """
+        """Test that configuration uses 'Master' with capital M"""
         ignored = settings_config.get('githubPullRequests.ignoredPullRequestBranches', [])
         # Should use 'Master' not 'master' to match repository convention
         assert 'Master' in ignored, \
@@ -224,11 +193,7 @@ class TestBestPractices:
     """Test VSCode configuration best practices"""
     
     def test_file_has_minimal_settings(self, settings_config):
-        """
-        Ensure workspace settings contain at most 20 entries.
-        
-        This enforces minimal, project-specific workspace settings and helps avoid committing personal preferences.
-        """
+        """Test that file doesn't have excessive settings"""
         # Workspace settings should be minimal and project-specific
         assert len(settings_config) <= 20, \
             "Workspace settings should be minimal (avoid personal preferences)"
@@ -301,12 +266,7 @@ class TestEdgeCases:
             pass  # VSCode supports trailing commas in settings
     
     def test_empty_ignored_list_would_be_useless(self, settings_config):
-        """
-        Ensure the 'githubPullRequests.ignoredPullRequestBranches' setting, if present, contains at least one entry.
-        
-        Parameters:
-            settings_config (dict): Parsed VSCode settings (the JSON object from .vscode/settings.json).
-        """
+        """Test that if ignored branches is set, it has content"""
         if 'githubPullRequests.ignoredPullRequestBranches' in settings_config:
             ignored = settings_config['githubPullRequests.ignoredPullRequestBranches']
             assert len(ignored) > 0, \
@@ -333,13 +293,7 @@ class TestPythonSpecificSettings:
     """Test Python-specific settings (if present)"""
     
     def test_python_settings_if_present(self, settings_config):
-        """
-        Validate that any Python-related VSCode settings do not use absolute filesystem paths.
-        
-        Checks each setting whose key starts with `python.` and, if the value is a string,
-        asserts it does not start with a leading `/` (an absolute Unix path) unless the
-        string begins with `${` (templated variables).
-        """
+        """Test that Python settings are appropriate if configured"""
         python_keys = [k for k in settings_config.keys() if k.startswith('python.')]
         if python_keys:
             # If Python settings exist, they should be project-specific

@@ -20,53 +20,15 @@ from pathlib import Path
 
 
 @pytest.fixture(scope='module')
-def faq_path():
-    """
-    Return the filesystem path to the project's FAQ Markdown file.
-    
-    Returns:
-        Path: Path object pointing to 'docs/faq.md'.
-    """
-    return Path('docs/faq.md')
-
-
-@pytest.fixture(scope='module')
-def installation_path():
-    """
-    Locate the installation setup Markdown file in the repository.
-    
-    Returns:
-        Path: Path to the docs/installation-setup.md file.
-    """
-    return Path('docs/installation-setup.md')
-
-
-@pytest.fixture(scope='module')
 def faq_content(faq_path):
-    """
-    Return the contents of the FAQ file at the given path.
-    
-    Parameters:
-        faq_path (Path | str): Path to the `docs/faq.md` file.
-    
-    Returns:
-        content (str): The full text of the FAQ file.
-    """
+    """Load FAQ content"""
     with open(faq_path, 'r') as f:
         return f.read()
 
 
 @pytest.fixture(scope='module')
 def installation_content(installation_path):
-    """
-    Read and return the contents of the installation markdown file.
-    
-    Parameters:
-        installation_path (Path | str): Path to the installation document (typically docs/installation-setup.md).
-    
-    Returns:
-        str: The installation file content.
-    """
+    """Load installation document content"""
     with open(installation_path, 'r') as f:
         return f.read()
 
@@ -106,12 +68,7 @@ class TestFAQPythonVersionInfo:
             "FAQ should mention macOS platform"
     
     def test_mentions_python_311_workaround(self, faq_content):
-        """
-        Verify the FAQ mentions Python 3.11 as a compatibility workaround.
-        
-        Parameters:
-            faq_content (str): Contents of docs/faq.md as a string.
-        """
+        """Test that FAQ mentions Python 3.11 as workaround"""
         assert '3.11' in faq_content, \
             "FAQ should mention Python 3.11 as compatibility workaround"
     
@@ -153,11 +110,7 @@ class TestInstallationPythonRequirements:
             "Should mention Python 3.11 for macOS users"
     
     def test_has_system_requirements_section(self, installation_content):
-        """
-        Verify the installation guide contains a system requirements section.
-        
-        Checks that the installation content includes either the heading "System Requirements" or "Requirements".
-        """
+        """Test that guide has system requirements section"""
         assert 'System Requirements' in installation_content or \
                'Requirements' in installation_content, \
             "Should have system requirements section"
@@ -189,11 +142,7 @@ class TestMacOSCompatibilitySection:
             "macOS section should include Homebrew installation steps"
     
     def test_shows_brew_install_command(self, installation_content):
-        """
-        Verify the installation guide contains the exact Homebrew command to install Python 3.11.
-        
-        Checks that the literal string 'brew install python@3.11' appears in the installation content.
-        """
+        """Test that guide shows brew install command for Python 3.11"""
         assert 'brew install python@3.11' in installation_content, \
             "Should show exact brew install command"
     
@@ -228,12 +177,7 @@ class TestCodeBlocks:
             "Code blocks should be properly closed (even number of ```)"
     
     def test_bash_code_blocks_specified(self, installation_content):
-        """
-        Ensure installation guide code fences specify a shell language when code blocks are present.
-        
-        Parameters:
-            installation_content (str): The contents of docs/installation-setup.md to inspect.
-        """
+        """Test that bash code blocks specify language"""
         if '```' in installation_content:
             assert '```bash' in installation_content or '```sh' in installation_content, \
                 "Bash code blocks should specify language"
@@ -250,11 +194,7 @@ class TestLinksAndReferences:
             assert len(url) > 0, "Link URL should not be empty"
     
     def test_installation_links_are_valid_markdown(self, installation_content):
-        """
-        Check that every Markdown link in the installation guide has non-empty link text and a non-empty URL.
-        
-        This test extracts Markdown-style links (`[text](url)`) from `installation_content` and asserts each link's text and URL are present.
-        """
+        """Test that installation guide links use valid markdown syntax"""
         links = re.findall(r'\[([^\]]+)\]\(([^\)]+)\)', installation_content)
         for text, url in links:
             assert len(text) > 0, "Link text should not be empty"
@@ -283,12 +223,7 @@ class TestTemporaryWorkaroundNotice:
     """Test that temporary workaround is properly noted"""
     
     def test_installation_marks_python_311_as_temporary(self, installation_content):
-        """
-        Assert the installation guide marks the Python 3.11 downgrade as a temporary workaround.
-        
-        Parameters:
-            installation_content (str): The text content of docs/installation-setup.md to inspect.
-        """
+        """Test that Python 3.11 workaround is marked as temporary"""
         lower_content = installation_content.lower()
         assert 'temporary' in lower_content or 'workaround' in lower_content, \
             "Should indicate Python 3.11 downgrade is temporary solution"
@@ -304,11 +239,7 @@ class TestEdgeCases:
     """Test edge cases and potential issues"""
     
     def test_faq_file_readable(self, faq_path):
-        """
-        Verify that the FAQ documentation file exists and is readable (contains non-empty content).
-        
-        This test asserts that the path points to a regular file and that the file's content length is greater than zero.
-        """
+        """Test that FAQ file is readable"""
         assert faq_path.is_file(), "FAQ should be a file"
         with open(faq_path, 'r') as f:
             content = f.read()
