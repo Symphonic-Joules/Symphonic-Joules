@@ -1,126 +1,265 @@
----
-layout: default
-title: Symphonic-Joules - Where Sound Meets Science
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symphonic-Joules | Where Sound Meets Science</title>
+    <style>
+        /* Base Environment */
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+        }
 
-<div align="center">
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.6;
+        }
 
-# 🎵 Symphonic-Joules
+        a { text-decoration: none; color: var(--accent); }
+        a:hover { color: var(--text-main); }
 
-**Where Sound Meets Science**
+        /* 1. The Lighthouse (Hero Section) */
+        .hero {
+            text-align: center;
+            padding: 120px 20px;
+            /* Fluid animated gradient to represent sound/energy */
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #0f172a);
+            background-size: 400% 400%;
+            animation: fluidWave 15s ease infinite;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
 
-</div>
+        @keyframes fluidWave {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
----
+        .hero h1 {
+            font-size: 3.5rem;
+            margin: 0 0 10px 0;
+            letter-spacing: -0.05em;
+        }
 
-## 🎵 Mission
+        .hero p.subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
 
-A project that harmonizes the worlds of sound and energy through innovative computational approaches, providing tools and insights that bridge the gap between acoustics and physics.
+        .cta-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
----
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
 
-## ✨ Why Symphonic-Joules?
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
 
-- **Bridge Science & Sound**: Unified framework connecting audio analysis with physics-based energy calculations
-- **Open & Extensible**: Build on acoustic energy models with a modular, plugin-friendly architecture
-- **Science-Driven**: Every calculation grounded in established physics principles and peer-reviewed methods
-- **Built for Collaboration**: Designed for musicians, physicists, researchers, and developers working together
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
 
----
+        .btn-outline {
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-main);
+        }
 
-## 🚀 Quick Navigation
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+        }
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 30px 0;">
+        /* Container for content */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
 
-<div style="border: 2px solid #4CAF50; padding: 20px; border-radius: 8px;">
-<h3>📦 Get Started</h3>
-<p>Ready to install and try Symphonic-Joules?</p>
-<a href="https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md#-quick-start" style="color: #4CAF50; font-weight: bold;">Installation Guide →</a>
-</div>
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+        }
 
-<div style="border: 2px solid #2196F3; padding: 20px; border-radius: 8px;">
-<h3>💡 Learn by Example</h3>
-<p>See what Symphonic-Joules can do with practical examples.</p>
-<a href="https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md#-usage-examples" style="color: #2196F3; font-weight: bold;">View Examples →</a>
-</div>
+        /* 2. Features Quadrant */
+        .quadrant {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
 
-<div style="border: 2px solid #FF9800; padding: 20px; border-radius: 8px;">
-<h3>🤝 Contribute</h3>
-<p>Help build the future of acoustic energy analysis.</p>
-<a href="https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/CONTRIBUTING.md" style="color: #FF9800; font-weight: bold;">Contributing Guide →</a>
-</div>
+        .card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 12px;
+            border-top: 3px solid var(--accent);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+        }
 
-</div>
+        .card h3 { margin-top: 0; }
+        .card p { color: var(--text-muted); margin-bottom: 0; }
+        .icon { font-size: 1.5rem; margin-bottom: 15px; display: inline-block; }
 
----
+        /* 3. Side-by-Side: Theory & Execution */
+        .split-view {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 60px;
+        }
 
-## 🔬 Core Concept
+        .code-block, .math-block {
+            background: #000;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
-Symphonic-Joules explores the **acoustic energy density equation**, which governs how sound carries energy through space:
+        .math-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-<div align="center">
+        .equation {
+            font-size: 1.2rem;
+            color: #38bdf8;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-### **w = p² / (2ρc²) + ρv² / 2**
+        .variables { color: var(--text-muted); }
+        .keyword { color: #f472b6; }
+        .string { color: #a3e635; }
+        .comment { color: #64748b; }
 
-**Where:**
-- **w** = acoustic energy density (J/m³)
-- **p** = sound pressure (Pa)
-- **ρ** = medium density (kg/m³)
-- **c** = speed of sound (m/s)
-- **v** = particle velocity (m/s)
+        @media (max-width: 768px) {
+            .split-view { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
 
-</div>
+    <!-- 1. The Lighthouse -->
+    <header class="hero">
+        <div style="position: relative; z-index: 2;">
+            <h1>Symphonic-Joules</h1>
+            <p class="subtitle">Where Sound Meets Science. A unified computational framework connecting audio analysis with physics-based energy calculations.</p>
+            <div class="cta-group">
+                <a href="#quick-start" class="btn btn-primary">Get Started</a>
+                <a href="#examples" class="btn btn-outline">View Examples</a>
+                <a href="https://github.com/JaclynCodes/Symphonic-Joules-a67272a4" class="btn btn-outline">GitHub Repository</a>
+            </div>
+        </div>
+    </header>
 
-This fundamental relationship bridges acoustics and energy, guiding our computational approach.
+    <main class="container">
+        
+        <!-- 2. Features Quadrant -->
+        <h2 class="section-title">Why Symphonic-Joules?</h2>
+        <div class="quadrant">
+            <div class="card">
+                <span class="icon">🌉</span>
+                <h3>Bridge Science & Sound</h3>
+                <p>Unified framework connecting audio analysis with physics-based energy calculations directly in Python.</p>
+            </div>
+            <div class="card">
+                <span class="icon">🧩</span>
+                <h3>Open & Extensible</h3>
+                <p>Build on acoustic energy models with a modular, plugin-friendly architecture designed for scale.</p>
+            </div>
+            <div class="card">
+                <span class="icon">🔬</span>
+                <h3>Science-Driven</h3>
+                <p>Every calculation is strictly grounded in established physics principles and peer-reviewed acoustic methods.</p>
+            </div>
+            <div class="card">
+                <span class="icon">🤝</span>
+                <h3>Built for Collaboration</h3>
+                <p>Designed for musicians, physicists, researchers, and developers to work seamlessly together.</p>
+            </div>
+        </div>
 
----
+        <!-- 3. Side-by-Side: Theory & Execution -->
+        <div class="split-view">
+            <!-- Theory -->
+            <div class="math-block">
+                <h3 style="margin-top: 0; color: white;">The Physics</h3>
+                <p class="variables" style="margin-top: 0;">Governing how sound carries energy through space:</p>
+                <div class="equation">
+                    w = p² / (2ρc²) + ρv² / 2
+                </div>
+                <div class="variables">
+                    <strong>w</strong> = acoustic energy density (J/m³)<br>
+                    <strong>p</strong> = sound pressure (Pa)<br>
+                    <strong>ρ</strong> = medium density (kg/m³)<br>
+                    <strong>c</strong> = speed of sound (m/s)<br>
+                    <strong>v</strong> = particle velocity (m/s)
+                </div>
+            </div>
 
-## 💻 Quick API Preview
+            <!-- Execution -->
+            <div class="code-block">
+                <h3 style="margin-top: 0; color: white;">The Code</h3>
+<pre style="margin: 0;"><code><span class="keyword">from</span> symphonic_joules <span class="keyword">import</span> AudioSignal, EnergyCalculator
 
-```python
-from symphonic_joules import AudioSignal, EnergyCalculator
+<span class="comment"># Load an audio signal</span>
+signal = AudioSignal.from_file(<span class="string">"symphony.wav"</span>)
 
-# Load an audio signal
-signal = AudioSignal.from_file("symphony.wav")
-
-# Calculate acoustic energy
-calculator = EnergyCalculator(medium_density=1.225, sound_speed=343.0)
+<span class="comment"># Calculate acoustic energy</span>
+calculator = EnergyCalculator(
+    medium_density=1.225, 
+    sound_speed=343.0
+)
 energy = calculator.compute_total_energy(signal)
 
-print(f"Total Energy: {energy:.6f} J")
-```
+print(f<span class="string">"Total Energy: {energy:.6f} J"</span>)</code></pre>
+            </div>
+        </div>
 
----
+    </main>
 
-## 📚 Documentation
+    <footer>
+        <p>Current Phase: 🏗️ Foundation (v0.1.0) | Open Source under MIT License</p>
+        <p><a href="https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/CONTRIBUTING.md">Contributing Guidelines</a> • <a href="https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/issues/new">Report Bugs</a></p>
+    </footer>
 
-- **[Full README](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md)** - Complete project documentation
-- **[Installation Guide](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md#-quick-start)** - Setup instructions
-- **[Contributing Guidelines](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/CONTRIBUTING.md)** - How to contribute
-- **[API Reference](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/tree/main/docs)** - API documentation
-- **[Roadmap](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/blob/main/README.md#-roadmap)** - Development timeline
-
----
-
-## 🎯 Project Status
-
-**Current Phase:** 🏗️ Foundation (v0.1.0)
-
-We're building a solid infrastructure for scientific audio and energy analysis. Python 3.8+, MIT License, comprehensive testing.
-
----
-
-## 🤝 Get Involved
-
-- **[Report Bugs](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/issues/new)** - Create an issue
-- **[Suggest Features](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/issues/new?labels=enhancement)** - Feature requests
-- **[Ask Questions](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4/discussions)** - GitHub Discussions
-- **[View Repository](https://github.com/JaclynCodes/Symphonic-Joules-a67272a4)** - Source code
-
----
-
-<div align="center">
-
+</body>
+</html>
 **Thank you for your interest in Symphonic-Joules!**
 
 *Where sound meets science, harmony meets energy.*
